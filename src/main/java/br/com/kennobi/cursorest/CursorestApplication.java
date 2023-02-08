@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.kennobi.cursorest.domain.Categoria;
 import br.com.kennobi.cursorest.domain.Cidade;
+import br.com.kennobi.cursorest.domain.Cliente;
+import br.com.kennobi.cursorest.domain.Endereco;
 import br.com.kennobi.cursorest.domain.Estado;
 import br.com.kennobi.cursorest.domain.Produto;
+import br.com.kennobi.cursorest.domain.enums.TipoCliente;
 import br.com.kennobi.cursorest.repositories.CategoriaRepository;
 import br.com.kennobi.cursorest.repositories.CidadeRepository;
+import br.com.kennobi.cursorest.repositories.ClienteRepository;
+import br.com.kennobi.cursorest.repositories.EnderecoRepository;
 import br.com.kennobi.cursorest.repositories.EstadoRepository;
 import br.com.kennobi.cursorest.repositories.ProdutoRepository;
 
@@ -30,6 +35,12 @@ public class CursorestApplication implements CommandLineRunner {
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursorestApplication.class, args);
@@ -67,6 +78,18 @@ public class CursorestApplication implements CommandLineRunner {
 
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+		
+		Cliente cli1 = new Cliente(null, "Erbenio Mota", "erbeniomota@gmail.com", "67518338300", TipoCliente.PESSOAFISICA);
+		
+		cli1.getTelefones().addAll(Arrays.asList("8599732-0153","8599613-4656"));
+		
+		Endereco e1 = new Endereco(null, "Rua Francisco Darley", "36","Estrada Nova II", "Serpa", "61700-000", cli1, c1);
+		Endereco e2 = new Endereco(null, "Rua 84", "60","Setor H", "Jereissati II", "62800-000", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 
 	}
 
