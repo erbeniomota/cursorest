@@ -13,6 +13,7 @@ import br.com.kennobi.cursorest.domain.Cidade;
 import br.com.kennobi.cursorest.domain.Cliente;
 import br.com.kennobi.cursorest.domain.Endereco;
 import br.com.kennobi.cursorest.domain.Estado;
+import br.com.kennobi.cursorest.domain.ItemPedido;
 import br.com.kennobi.cursorest.domain.Pagamento;
 import br.com.kennobi.cursorest.domain.PagamentoComBoleto;
 import br.com.kennobi.cursorest.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import br.com.kennobi.cursorest.repositories.CidadeRepository;
 import br.com.kennobi.cursorest.repositories.ClienteRepository;
 import br.com.kennobi.cursorest.repositories.EnderecoRepository;
 import br.com.kennobi.cursorest.repositories.EstadoRepository;
+import br.com.kennobi.cursorest.repositories.ItemPedidoRepository;
 import br.com.kennobi.cursorest.repositories.PagamentoRepository;
 import br.com.kennobi.cursorest.repositories.PedidoRepository;
 import br.com.kennobi.cursorest.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class CursorestApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursorestApplication.class, args);
@@ -121,6 +126,18 @@ public class CursorestApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
 		
+		ItemPedido ip1 = new ItemPedido(ped1, p1,0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3,0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2,100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip2));
+		p3.getItens().addAll(Arrays.asList(ip3));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 	}
 
 }
