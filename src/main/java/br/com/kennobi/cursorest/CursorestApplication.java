@@ -70,20 +70,30 @@ public class CursorestApplication implements CommandLineRunner {
 
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
+		Categoria cat3 = new Categoria(null, "Cama, mesa e Banho");
+		Categoria cat4 = new Categoria(null, "Vestuário");
+		Categoria cat5 = new Categoria(null, "Eletrodoméstico");
+		Categoria cat6 = new Categoria(null, "Perfumaria");		
 
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
 		Produto p3 = new Produto(null, "Mouse", 80.00);
-
+		Produto p4 = new Produto(null, "Toalha de Banho", 40.00);
+		Produto p5 = new Produto(null, "Blusa de Moleton", 30.00);
+		
 		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
 		cat2.getProdutos().addAll(Arrays.asList(p2));
+		cat3.getProdutos().addAll(Arrays.asList(p4));
+		cat4.getProdutos().addAll(Arrays.asList(p5));
 
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
+		p4.getCategorias().addAll(Arrays.asList(cat3));
+		p5.getCategorias().addAll(Arrays.asList(cat4));
 
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
-		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+		categoriaRepository.saveAll(Arrays.asList(cat1,cat2,cat3,cat4,cat5,cat6));
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3,p4,p5));
 
 		Estado est1 = new Estado(null, "Minas Gerais", "MG");
 		Estado est2 = new Estado(null, "São Paulo", "SP");
