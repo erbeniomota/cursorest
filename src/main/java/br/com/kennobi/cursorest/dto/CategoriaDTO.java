@@ -2,12 +2,19 @@ package br.com.kennobi.cursorest.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Length;
+
 import br.com.kennobi.cursorest.domain.Categoria;
+import jakarta.validation.constraints.NotEmpty;
+
 
 public class CategoriaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+	
+	@NotEmpty(message="Preenchimento Obrigatório !")
+	@Length(min=5,max=50,message="Campo ontém de 5 a 50 caracteres")
 	private String nome;
 
 	public CategoriaDTO() {
